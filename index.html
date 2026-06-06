@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Réflexe Textes IEG</title>
+<style>
+:root {
+  --dark:#0f172a; --blue:#2563eb; --blue2:#1d4ed8; --light:#f4f6f8; --text:#1f2937;
+  --border:#e2e8f0; --yellow:#fef3c7; --green:#dcfce7; --red:#fee2e2; --muted:#64748b;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--light);color:var(--text);line-height:1.5}
+header{background:linear-gradient(135deg,#0f172a,#1e3a8a);color:white;padding:38px 20px 72px;text-align:center}
+header h1{margin:0;font-size:39px;letter-spacing:-.5px}
+header p{margin:12px auto 0;max-width:980px;color:#dbeafe;font-size:17px}
+.container{max-width:1280px;margin:auto;padding:0 20px 42px}
+.panel{background:white;padding:22px;border-radius:16px;box-shadow:0 8px 24px rgba(15,23,42,.16);margin-top:-38px}
+label{font-weight:bold;display:block;margin-bottom:8px;color:var(--dark)}
+input,select{width:100%;padding:14px;font-size:16px;border:1px solid #cbd5e1;border-radius:10px;background:white}
+.filters{display:grid;grid-template-columns:2fr 1fr 1fr;gap:12px;align-items:end}
+.notice{margin-top:14px;background:#eff6ff;border:1px solid #bfdbfe;color:#1e3a8a;padding:12px;border-radius:10px;font-size:14px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin:25px 0}
+.stat{background:white;border-radius:14px;padding:16px;box-shadow:0 2px 10px rgba(15,23,42,.06);border:1px solid var(--border)}
+.stat b{font-size:26px;color:var(--blue2);display:block}
+.section-title{font-size:24px;margin:28px 0 14px;color:var(--dark)}
+.quick{display:flex;flex-wrap:wrap;gap:9px;margin:12px 0}
+.chip{border:none;border-radius:999px;background:#e0f2fe;color:#075985;padding:9px 13px;cursor:pointer;font-weight:bold}
+.chip:hover{background:#bae6fd}
+.results-head{display:flex;justify-content:space-between;gap:12px;align-items:center;margin:22px 0 12px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(350px,1fr));gap:16px}
+.card{background:white;border-radius:15px;padding:18px;box-shadow:0 3px 12px rgba(15,23,42,.08);border-left:6px solid var(--blue)}
+.card h3{margin:4px 0 10px;color:var(--blue2);font-size:20px;line-height:1.25}
+.meta{font-size:13px;color:var(--muted);margin-bottom:8px}
+.tag{display:inline-block;background:#dbeafe;color:#1e40af;padding:4px 9px;border-radius:999px;font-size:12px;font-weight:bold;margin:0 6px 6px 0}
+.tag.green{background:var(--green);color:#166534} .tag.red{background:var(--red);color:#991b1b}
+.summary{font-size:14px;margin:8px 0}
+.btns{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
+.btn{display:block;text-align:center;background:var(--blue);color:white!important;text-decoration:none;padding:10px;border-radius:9px;font-weight:bold;font-size:14px}
+.btn.secondary{background:#334155} .btn.green{background:#15803d}
+.btn:hover{filter:brightness(.92);text-decoration:none}
+.empty{background:white;border:1px solid var(--border);border-radius:14px;padding:22px;text-align:center;color:var(--muted)}
+footer{text-align:center;padding:26px;color:#64748b;font-size:14px}
+@media(max-width:760px){.filters{grid-template-columns:1fr}.cards{grid-template-columns:1fr}.btns{grid-template-columns:1fr}header h1{font-size:30px}}
+</style>
+</head>
+<body>
+<header>
+  <h1>Réflexe Textes IEG</h1>
+  <p>Application autonome créée à partir de ton export SGE/IEG : recherche, filtres, ouverture directe des documents et liens Code du travail.</p>
+</header>
+
+<div class="container">
+  <div class="panel">
+    <div class="filters">
+      <div>
+        <label for="q">Recherche</label>
+        <input id="q" type="search" placeholder="Exemples : PERS 793, astreinte, repas, déplacement, repos, DP, accord..." oninput="render()">
+      </div>
+      <div>
+        <label for="typeFilter">Type</label>
+        <select id="typeFilter" onchange="render()"></select>
+      </div>
+      <div>
+        <label for="catFilter">Catégorie</label>
+        <select id="catFilter" onchange="render()"></select>
+      </div>
+    </div>
+    <div class="notice">
+      Mode d’emploi : dézippe le dossier, ouvre <b>index.html</b>, tape un mot-clé et clique sur <b>Ouvrir le document</b>.
+      Les documents s’ouvrent directement depuis le dossier <b>documents</b>.
+    </div>
+  </div>
+
+  <div class="stats" id="stats"></div>
+
+  <h2 class="section-title">Recherches rapides</h2>
+  <div class="quick">
+    <button class="chip" onclick="setQ('PERS 793')">PERS 793</button>
+    <button class="chip" onclick="setQ('PERS 530')">PERS 530</button>
+    <button class="chip" onclick="setQ('astreinte')">Astreinte</button>
+    <button class="chip" onclick="setQ('repas déplacement')">Repas / déplacement</button>
+    <button class="chip" onclick="setQ('repos')">Repos</button>
+    <button class="chip" onclick="setQ('droit de retrait')">Droit de retrait</button>
+    <button class="chip" onclick="setQ('accord')">Accords</button>
+    <button class="chip" onclick="setQ('corpus applicable')">Corpus applicable</button>
+  </div>
+
+  <div class="results-head">
+    <h2 class="section-title" style="margin:0">Résultats</h2>
+    <div id="count" class="meta"></div>
+  </div>
+  <div class="cards" id="results"></div>
+</div>
+
+<footer>Réflexe Textes IEG — Prototype local autonome. Aucun serveur nécessaire.</footer>
+
+<script src="data.js"></script>
+<script>
+const typeOptions = ["Tous", "PERS", "Note DP", "Circulaire N", "Accord", "Barème", "Corpus", "Article", "Statut", "Document"];
+const catOptions = ["Tous", "1- Circulaires PERS", "2 - Notes DP", "3 - Circulaires N", "4 - Accords de branche", "5- Documents utiles", "Code du travail", "Racine", "Statut IEG"];
+
+function escapeHtml(s) {
+  return String(s || '').replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));
+}
+
+function init() {
+  const typeSel = document.getElementById('typeFilter');
+  const catSel = document.getElementById('catFilter');
+  typeSel.innerHTML = typeOptions.map(t => `<option value="${escapeHtml(t)}">${escapeHtml(t)}</option>`).join('');
+  catSel.innerHTML = catOptions.map(c => `<option value="${escapeHtml(c)}">${escapeHtml(c)}</option>`).join('');
+  renderStats();
+  render();
+}
+
+function renderStats() {
+  const localCount = DOCUMENTS.filter(d => d.extension !== 'WEB').length;
+  const persCount = DOCUMENTS.filter(d => d.type === 'PERS').length;
+  const dpCount = DOCUMENTS.filter(d => d.type === 'Note DP').length;
+  const accCount = DOCUMENTS.filter(d => d.type === 'Accord').length;
+  document.getElementById('stats').innerHTML = `
+    <div class="stat"><b>${localCount}</b>documents intégrés</div>
+    <div class="stat"><b>${persCount}</b>PERS</div>
+    <div class="stat"><b>${dpCount}</b>Notes DP</div>
+    <div class="stat"><b>${accCount}</b>Accords</div>
+    <div class="stat"><b>${DOCUMENTS.length}</b>résultats indexés</div>
+  `;
+}
+
+function setQ(text) {
+  document.getElementById('q').value = text;
+  render();
+}
+
+function scoreDoc(d, terms) {
+  const title = (d.title || '').toLowerCase();
+  const search = (d.search || '').toLowerCase();
+  let score = 0;
+  for (const t of terms) {
+    if (title.includes(t)) score += 8;
+    if (search.includes(t)) score += 2;
+  }
+  if (d.type === 'PERS') score += 1;
+  return score;
+}
+
+function render() {
+  const q = document.getElementById('q').value.trim().toLowerCase();
+  const type = document.getElementById('typeFilter').value;
+  const cat = document.getElementById('catFilter').value;
+  const terms = q.split(/\s+/).filter(Boolean);
+
+  let list = DOCUMENTS.filter(d => {
+    const typeOk = type === 'Tous' || d.type === type;
+    const catOk = cat === 'Tous' || d.category === cat;
+    const qOk = terms.length === 0 || terms.every(t => (d.search || '').includes(t) || (d.title || '').toLowerCase().includes(t));
+    return typeOk && catOk && qOk;
+  });
+
+  if (terms.length) {
+    list = list.map(d => [scoreDoc(d, terms), d]).sort((a,b) => b[0]-a[0] || String(a[1].title).localeCompare(String(b[1].title), 'fr')).map(x => x[1]);
+  } else {
+    list = list.sort((a,b) => String(a.title).localeCompare(String(b.title), 'fr'));
+  }
+
+  document.getElementById('count').textContent = `${list.length} résultat(s)`;
+  const results = document.getElementById('results');
+  if (!list.length) {
+    results.innerHTML = `<div class="empty">Aucun résultat. Essaie un autre mot-clé ou enlève un filtre.</div>`;
+    return;
+  }
+
+  results.innerHTML = list.slice(0, 120).map(d => {
+    const isWeb = d.extension === 'WEB';
+    const openLabel = isWeb ? 'Ouvrir la source' : 'Ouvrir le document';
+    const tags = `<span class="tag">${escapeHtml(d.type)}</span><span class="tag green">${escapeHtml(d.extension)}</span>`;
+    const sub = [d.category, d.subpath].filter(Boolean).join(' / ');
+    const kw = d.keywords ? `<p class="summary"><b>Mots-clés :</b> ${escapeHtml(d.keywords)}</p>` : '';
+    return `
+      <article class="card">
+        ${tags}
+        <h3>${escapeHtml(d.title)}</h3>
+        <div class="meta">${escapeHtml(sub)}</div>
+        <p class="summary"><b>Fichier :</b> ${escapeHtml(d.filename)}</p>
+        ${kw}
+        <div class="btns">
+          <a class="btn ${isWeb ? 'green' : ''}" target="_blank" href="${encodeURI(d.url)}">${openLabel}</a>
+          <button class="btn secondary" onclick="copyRef('${String(d.id).replace(/'/g, '')}')">Copier référence</button>
+        </div>
+      </article>`;
+  }).join('');
+}
+
+function copyRef(id) {
+  const d = DOCUMENTS.find(x => String(x.id) === String(id));
+  if (!d) return;
+  const text = `${d.title} — ${d.category} — ${d.url}`;
+  navigator.clipboard?.writeText(text);
+  alert('Référence copiée');
+}
+
+init();
+</script>
+</body>
+</html>

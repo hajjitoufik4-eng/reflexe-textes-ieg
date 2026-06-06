@@ -1,0 +1,16 @@
+# Réflexe Textes IEG
+
+Prototype local autonome.
+
+## Utilisation
+1. Dézipper le dossier.
+2. Ouvrir `index.html` avec Chrome ou Edge.
+3. Rechercher un texte : `PERS 793`, `astreinte`, `repas`, `repos`, etc.
+4. Cliquer sur `Ouvrir le document`.
+
+## Contenu intégré
+- Documents locaux : 642
+- Résultats indexés avec sources externes : 648
+
+## Remarque
+L'application fonctionne sans serveur, mais les liens vers les articles Légifrance nécessitent Internet.
