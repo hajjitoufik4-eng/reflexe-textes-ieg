@@ -3,202 +3,125 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Réflexe Textes IEG</title>
+<title>Réflexe Textes IEG — Assistant corrigé V2</title>
 <style>
-:root {
-  --dark:#0f172a; --blue:#2563eb; --blue2:#1d4ed8; --light:#f4f6f8; --text:#1f2937;
-  --border:#e2e8f0; --yellow:#fef3c7; --green:#dcfce7; --red:#fee2e2; --muted:#64748b;
+:root{
+  --bg:#f5f7fb;--ink:#172033;--muted:#69748a;--card:#fff;--line:#e5e7ef;
+  --blue:#2563eb;--blue2:#1d4ed8;--green:#16a34a;--orange:#f97316;
+  --red:#dc2626;--purple:#7c3aed;--dark:#0f172a;--shadow:0 16px 40px rgba(15,23,42,.12)
 }
 *{box-sizing:border-box}
-body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--light);color:var(--text);line-height:1.5}
-header{background:linear-gradient(135deg,#0f172a,#1e3a8a);color:white;padding:38px 20px 72px;text-align:center}
-header h1{margin:0;font-size:39px;letter-spacing:-.5px}
-header p{margin:12px auto 0;max-width:980px;color:#dbeafe;font-size:17px}
-.container{max-width:1280px;margin:auto;padding:0 20px 42px}
-.panel{background:white;padding:22px;border-radius:16px;box-shadow:0 8px 24px rgba(15,23,42,.16);margin-top:-38px}
-label{font-weight:bold;display:block;margin-bottom:8px;color:var(--dark)}
-input,select{width:100%;padding:14px;font-size:16px;border:1px solid #cbd5e1;border-radius:10px;background:white}
-.filters{display:grid;grid-template-columns:2fr 1fr 1fr;gap:12px;align-items:end}
-.notice{margin-top:14px;background:#eff6ff;border:1px solid #bfdbfe;color:#1e3a8a;padding:12px;border-radius:10px;font-size:14px}
-.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin:25px 0}
-.stat{background:white;border-radius:14px;padding:16px;box-shadow:0 2px 10px rgba(15,23,42,.06);border:1px solid var(--border)}
-.stat b{font-size:26px;color:var(--blue2);display:block}
-.section-title{font-size:24px;margin:28px 0 14px;color:var(--dark)}
-.quick{display:flex;flex-wrap:wrap;gap:9px;margin:12px 0}
-.chip{border:none;border-radius:999px;background:#e0f2fe;color:#075985;padding:9px 13px;cursor:pointer;font-weight:bold}
-.chip:hover{background:#bae6fd}
-.results-head{display:flex;justify-content:space-between;gap:12px;align-items:center;margin:22px 0 12px}
-.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(350px,1fr));gap:16px}
-.card{background:white;border-radius:15px;padding:18px;box-shadow:0 3px 12px rgba(15,23,42,.08);border-left:6px solid var(--blue)}
-.card h3{margin:4px 0 10px;color:var(--blue2);font-size:20px;line-height:1.25}
-.meta{font-size:13px;color:var(--muted);margin-bottom:8px}
-.tag{display:inline-block;background:#dbeafe;color:#1e40af;padding:4px 9px;border-radius:999px;font-size:12px;font-weight:bold;margin:0 6px 6px 0}
-.tag.green{background:var(--green);color:#166534} .tag.red{background:var(--red);color:#991b1b}
-.summary{font-size:14px;margin:8px 0}
-.btns{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
-.btn{display:block;text-align:center;background:var(--blue);color:white!important;text-decoration:none;padding:10px;border-radius:9px;font-weight:bold;font-size:14px}
-.btn.secondary{background:#334155} .btn.green{background:#15803d}
-.btn:hover{filter:brightness(.92);text-decoration:none}
-.empty{background:white;border:1px solid var(--border);border-radius:14px;padding:22px;text-align:center;color:var(--muted)}
-footer{text-align:center;padding:26px;color:#64748b;font-size:14px}
-@media(max-width:760px){.filters{grid-template-columns:1fr}.cards{grid-template-columns:1fr}.btns{grid-template-columns:1fr}header h1{font-size:30px}}
+html{scroll-padding-top:24px}
+body{
+  margin:0;font-family:Arial,Helvetica,sans-serif;color:var(--ink);line-height:1.5;
+  background:radial-gradient(circle at 8% 0%,rgba(37,99,235,.18),transparent 28%),
+  radial-gradient(circle at 88% 4%,rgba(124,58,237,.14),transparent 26%),var(--bg)
+}
+.hero{
+  background:linear-gradient(135deg,#0f172a,#1e3a8a 55%,#4c1d95);
+  color:white;text-align:center;padding:28px 18px 70px;position:relative;overflow:hidden
+}
+.hero h1{font-size:40px;margin:15px 0 8px;line-height:1.08}
+.hero p{max-width:960px;margin:0 auto;color:#dbeafe;font-size:17px}
+.logo{display:inline-flex;align-items:center;gap:10px;background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.20);padding:8px 15px;border-radius:999px;font-weight:900}.logo span{font-size:24px}
+
+.container{max-width:1320px;margin:auto;padding:0 18px 46px}
+.panel{
+  margin-top:-34px;background:rgba(255,255,255,.97);border:1px solid rgba(255,255,255,.8);
+  border-radius:26px;padding:20px;box-shadow:var(--shadow);position:relative;z-index:5
+}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:15px}.tab{border:1px solid var(--line);background:white;border-radius:999px;padding:10px 15px;font-weight:900;cursor:pointer;color:#334155}.tab.active{background:var(--blue);color:white;border-color:var(--blue)}
+.grid2{display:grid;grid-template-columns:1.12fr .88fr;gap:16px}.search-row{display:grid;grid-template-columns:2fr 1fr 1fr;gap:12px}
+label{font-weight:900;display:block;margin-bottom:7px;color:#0f172a}
+input,select,textarea{width:100%;border:1px solid #d6dbea;border-radius:16px;padding:15px;font-size:16px;background:white;outline:none;font-family:inherit}
+textarea{min-height:132px;resize:vertical}
+input:focus,select:focus,textarea:focus{border-color:var(--blue);box-shadow:0 0 0 4px rgba(37,99,235,.12)}
+.notice{margin-top:12px;background:#eff6ff;border:1px solid #bfdbfe;color:#1e3a8a;padding:12px;border-radius:15px;font-size:14px}
+.ai-box{background:#0f172a;color:white;border-radius:22px;padding:18px;min-height:100%}.ai-box h2{margin:0 0 8px}.ai-box p{color:#cbd5e1;margin:0 0 12px}
+.ai-answer{background:white;color:#0f172a;border-radius:16px;padding:14px;margin-top:12px;display:none;max-height:600px;overflow:auto}
+.ai-answer h3{margin:0 0 8px;color:var(--blue2)}.ai-answer a{color:var(--blue2);font-weight:800;text-decoration:none}.ai-answer a:hover{text-decoration:underline}
+.suggested{border-top:1px solid var(--line);padding-top:10px;margin-top:10px}
+.doclink{display:block;padding:10px;border:1px solid var(--line);border-radius:12px;margin:8px 0;background:#f8fafc}.doclink small{color:#64748b}
+.btn{border:0;border-radius:14px;padding:12px 14px;font-weight:900;text-decoration:none;text-align:center;color:white!important;background:var(--blue);cursor:pointer;display:inline-block}.btn.secondary{background:#334155}.btn.green{background:var(--green)}
+
+.dashboard{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;margin:24px 0}.stat{background:white;border-radius:20px;padding:16px;box-shadow:0 7px 20px rgba(15,23,42,.06);border:1px solid var(--line)}.stat b{font-size:29px;display:block;color:var(--blue2)}.stat small{color:var(--muted);font-weight:800}
+.section-title{font-size:25px;margin:28px 0 14px}
+.situations{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}.situation{border:0;text-align:left;border-radius:22px;padding:18px;background:white;box-shadow:0 7px 20px rgba(15,23,42,.06);cursor:pointer;transition:.2s;min-height:128px;border:1px solid var(--line)}.situation:hover{transform:translateY(-3px);box-shadow:var(--shadow)}.situation .icon{font-size:31px;display:block;margin-bottom:7px}.situation b{display:block;font-size:17px;color:#0f172a}.situation small{color:var(--muted)}
+.quick{display:flex;flex-wrap:wrap;gap:9px;margin:12px 0}.chip{border:none;border-radius:999px;background:#e0f2fe;color:#075985;padding:10px 14px;cursor:pointer;font-weight:900}.chip:hover{background:#bae6fd}
+.results-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:26px}.count{font-weight:900;color:var(--muted)}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(350px,1fr));gap:16px;margin-top:14px}.card{background:white;border-radius:22px;padding:18px;box-shadow:0 7px 22px rgba(15,23,42,.07);border:1px solid var(--line);position:relative;overflow:hidden}.card:before{content:"";position:absolute;inset:0 auto 0 0;width:7px;background:var(--blue)}.card.pers:before{background:var(--green)}.card.note:before{background:var(--purple)}.card.accord:before{background:var(--orange)}.card.article:before{background:var(--blue)}.card.statut:before{background:#0f172a}.card h3{margin:8px 0 10px;font-size:20px;line-height:1.25;color:#14213d;padding-left:2px}
+.badges{display:flex;flex-wrap:wrap;gap:6px;margin-left:2px}.badge{display:inline-flex;align-items:center;gap:5px;border-radius:999px;padding:5px 9px;font-size:12px;font-weight:900;background:#edf2ff;color:#1e40af}.badge.green{background:#dcfce7;color:#166534}.badge.dark{background:#e2e8f0;color:#0f172a}.meta{font-size:13px;color:var(--muted);font-weight:800;margin:8px 0}.summary{font-size:14px;margin:8px 0;color:#334155}.btns{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}.empty{background:white;border:1px solid var(--line);border-radius:18px;padding:24px;text-align:center;color:var(--muted);font-weight:900}.hidden{display:none!important}footer{text-align:center;padding:28px;color:#64748b;font-size:14px}
+@media(max-width:900px){.grid2,.search-row{grid-template-columns:1fr}.cards{grid-template-columns:1fr}.btns{grid-template-columns:1fr}.hero h1{font-size:32px}.hero{padding-bottom:58px}.panel{margin-top:-22px}}
+@media(max-height:780px){.hero{padding-top:18px;padding-bottom:48px}.hero h1{font-size:34px}.hero p{font-size:15px}.panel{margin-top:-22px}.section-title{margin-top:20px}}
 </style>
 </head>
 <body>
-<header>
-  <h1>Réflexe Textes IEG</h1>
-  <p>Application autonome créée à partir de ton export SGE/IEG : recherche, filtres, ouverture directe des documents et liens Code du travail.</p>
-</header>
+<section class="hero"><div class="logo"><span>⚖️</span> Réflexe Textes IEG</div><h1>Trouver le bon texte, vite.</h1><p>Version V2 : affichage corrigé, index documentaire restauré, assistant mieux calibré.</p></section>
 
-<div class="container">
-  <div class="panel">
-    <div class="filters">
-      <div>
-        <label for="q">Recherche</label>
-        <input id="q" type="search" placeholder="Exemples : PERS 793, astreinte, repas, déplacement, repos, DP, accord..." oninput="render()">
-      </div>
-      <div>
-        <label for="typeFilter">Type</label>
-        <select id="typeFilter" onchange="render()"></select>
-      </div>
-      <div>
-        <label for="catFilter">Catégorie</label>
-        <select id="catFilter" onchange="render()"></select>
-      </div>
-    </div>
-    <div class="notice">
-      Mode d’emploi : dézippe le dossier, ouvre <b>index.html</b>, tape un mot-clé et clique sur <b>Ouvrir le document</b>.
-      Les documents s’ouvrent directement depuis le dossier <b>documents</b>.
-    </div>
-  </div>
+<main class="container">
+<section class="panel">
+<div class="tabs"><button class="tab active" onclick="showMode('search')">🔎 Recherche</button><button class="tab" onclick="showMode('assistant')">🤖 Assistant simple</button></div>
 
-  <div class="stats" id="stats"></div>
+<div id="searchPanel"><div class="search-row"><div><label for="q">Que cherches-tu ?</label><input id="q" type="search" placeholder="Exemples : repas, PERS 793, astreinte, repos, déplacement..." oninput="render()"></div><div><label for="typeFilter">Type</label><select id="typeFilter" onchange="render()"></select></div><div><label for="catFilter">Catégorie</label><select id="catFilter" onchange="render()"></select></div></div><div class="notice">Recherche classique : tape un mot-clé ou clique sur une situation.</div></div>
 
-  <h2 class="section-title">Recherches rapides</h2>
-  <div class="quick">
-    <button class="chip" onclick="setQ('PERS 793')">PERS 793</button>
-    <button class="chip" onclick="setQ('PERS 530')">PERS 530</button>
-    <button class="chip" onclick="setQ('astreinte')">Astreinte</button>
-    <button class="chip" onclick="setQ('repas déplacement')">Repas / déplacement</button>
-    <button class="chip" onclick="setQ('repos')">Repos</button>
-    <button class="chip" onclick="setQ('droit de retrait')">Droit de retrait</button>
-    <button class="chip" onclick="setQ('accord')">Accords</button>
-    <button class="chip" onclick="setQ('corpus applicable')">Corpus applicable</button>
-  </div>
+<div id="assistantPanel" class="hidden"><div class="grid2">
+<div><label for="ask">Pose une question simple</label><textarea id="ask" placeholder="Exemples :
+- Je suis sorti en astreinte de 22h à 1h, quels textes ?
+- Je veux réclamer un repas en intervention
+- Est-ce que je dois avoir 11h de repos ?
+- Je dépasse 48h dans la semaine"></textarea><div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap"><button class="btn" onclick="answerQuestion()">Répondre et proposer les textes</button><button class="btn secondary" onclick="clearAssistant()">Effacer</button></div></div>
+<div class="ai-box"><h2>Assistant corrigé</h2><p>Il détecte les thèmes, élargit les mots-clés, puis classe les textes par pertinence. Il fonctionne sans clé API.</p><div id="aiAnswer" class="ai-answer"></div></div>
+</div></div>
+</section>
 
-  <div class="results-head">
-    <h2 class="section-title" style="margin:0">Résultats</h2>
-    <div id="count" class="meta"></div>
-  </div>
-  <div class="cards" id="results"></div>
-</div>
+<section class="dashboard" id="stats"></section>
 
-<footer>Réflexe Textes IEG — Prototype local autonome. Aucun serveur nécessaire.</footer>
+<h2 class="section-title">🎯 Recherche par situation</h2>
+<section class="situations">
+<button class="situation" onclick="situation('PERS 793 repas déplacement indemnités frais séjour')"><span class="icon">🍽️</span><b>Repas / déplacement</b><small>PERS 793, frais, indemnités</small></button>
+<button class="situation" onclick="situation('PERS 530 astreinte sujétions service permanence')"><span class="icon">📞</span><b>Astreinte</b><small>Sujétions, interventions, permanence</small></button>
+<button class="situation" onclick="situation('repos quotidien 11 heures astreinte intervention nuit')"><span class="icon">😴</span><b>Repos 11h</b><small>Repos quotidien après intervention</small></button>
+<button class="situation" onclick="situation('48 heures durée maximale hebdomadaire semaine')"><span class="icon">⏱️</span><b>48h semaine</b><small>Durée maximale hebdomadaire</small></button>
+<button class="situation" onclick="situation('droit de retrait danger grave imminent sécurité')"><span class="icon">⚠️</span><b>Droit de retrait</b><small>Danger grave et imminent</small></button>
+<button class="situation" onclick="situation('accord branche collectif')"><span class="icon">🤝</span><b>Accords de branche</b><small>Accords collectifs IEG</small></button>
+</section>
+
+<h2 class="section-title">⚡ Raccourcis</h2><div class="quick"><button class="chip" onclick="setQ('PERS 793')">PERS 793</button><button class="chip" onclick="setQ('PERS 530')">PERS 530</button><button class="chip" onclick="setQ('astreinte')">Astreinte</button><button class="chip" onclick="setQ('repas')">Repas</button><button class="chip" onclick="setQ('repos')">Repos</button><button class="chip" onclick="setQ('corpus applicable')">Corpus applicable</button><button class="chip" onclick="setQ('')">Tout afficher</button></div>
+
+<div class="results-head"><h2 class="section-title" style="margin:0">📚 Résultats</h2><div id="count" class="count"></div></div><section class="cards" id="results"></section>
+</main><footer>Réflexe Textes IEG — assistant simple corrigé V2.</footer>
 
 <script src="data.js"></script>
 <script>
-const typeOptions = ["Tous", "PERS", "Note DP", "Circulaire N", "Accord", "Barème", "Corpus", "Article", "Statut", "Document"];
-const catOptions = ["Tous", "1- Circulaires PERS", "2 - Notes DP", "3 - Circulaires N", "4 - Accords de branche", "5- Documents utiles", "Code du travail", "Racine", "Statut IEG"];
-
-function escapeHtml(s) {
-  return String(s || '').replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));
-}
-
-function init() {
-  const typeSel = document.getElementById('typeFilter');
-  const catSel = document.getElementById('catFilter');
-  typeSel.innerHTML = typeOptions.map(t => `<option value="${escapeHtml(t)}">${escapeHtml(t)}</option>`).join('');
-  catSel.innerHTML = catOptions.map(c => `<option value="${escapeHtml(c)}">${escapeHtml(c)}</option>`).join('');
-  renderStats();
-  render();
-}
-
-function renderStats() {
-  const localCount = DOCUMENTS.filter(d => d.extension !== 'WEB').length;
-  const persCount = DOCUMENTS.filter(d => d.type === 'PERS').length;
-  const dpCount = DOCUMENTS.filter(d => d.type === 'Note DP').length;
-  const accCount = DOCUMENTS.filter(d => d.type === 'Accord').length;
-  document.getElementById('stats').innerHTML = `
-    <div class="stat"><b>${localCount}</b>documents intégrés</div>
-    <div class="stat"><b>${persCount}</b>PERS</div>
-    <div class="stat"><b>${dpCount}</b>Notes DP</div>
-    <div class="stat"><b>${accCount}</b>Accords</div>
-    <div class="stat"><b>${DOCUMENTS.length}</b>résultats indexés</div>
-  `;
-}
-
-function setQ(text) {
-  document.getElementById('q').value = text;
-  render();
-}
-
-function scoreDoc(d, terms) {
-  const title = (d.title || '').toLowerCase();
-  const search = (d.search || '').toLowerCase();
-  let score = 0;
-  for (const t of terms) {
-    if (title.includes(t)) score += 8;
-    if (search.includes(t)) score += 2;
-  }
-  if (d.type === 'PERS') score += 1;
-  return score;
-}
-
-function render() {
-  const q = document.getElementById('q').value.trim().toLowerCase();
-  const type = document.getElementById('typeFilter').value;
-  const cat = document.getElementById('catFilter').value;
-  const terms = q.split(/\s+/).filter(Boolean);
-
-  let list = DOCUMENTS.filter(d => {
-    const typeOk = type === 'Tous' || d.type === type;
-    const catOk = cat === 'Tous' || d.category === cat;
-    const qOk = terms.length === 0 || terms.every(t => (d.search || '').includes(t) || (d.title || '').toLowerCase().includes(t));
-    return typeOk && catOk && qOk;
-  });
-
-  if (terms.length) {
-    list = list.map(d => [scoreDoc(d, terms), d]).sort((a,b) => b[0]-a[0] || String(a[1].title).localeCompare(String(b[1].title), 'fr')).map(x => x[1]);
-  } else {
-    list = list.sort((a,b) => String(a.title).localeCompare(String(b.title), 'fr'));
-  }
-
-  document.getElementById('count').textContent = `${list.length} résultat(s)`;
-  const results = document.getElementById('results');
-  if (!list.length) {
-    results.innerHTML = `<div class="empty">Aucun résultat. Essaie un autre mot-clé ou enlève un filtre.</div>`;
-    return;
-  }
-
-  results.innerHTML = list.slice(0, 120).map(d => {
-    const isWeb = d.extension === 'WEB';
-    const openLabel = isWeb ? 'Ouvrir la source' : 'Ouvrir le document';
-    const tags = `<span class="tag">${escapeHtml(d.type)}</span><span class="tag green">${escapeHtml(d.extension)}</span>`;
-    const sub = [d.category, d.subpath].filter(Boolean).join(' / ');
-    const kw = d.keywords ? `<p class="summary"><b>Mots-clés :</b> ${escapeHtml(d.keywords)}</p>` : '';
-    return `
-      <article class="card">
-        ${tags}
-        <h3>${escapeHtml(d.title)}</h3>
-        <div class="meta">${escapeHtml(sub)}</div>
-        <p class="summary"><b>Fichier :</b> ${escapeHtml(d.filename)}</p>
-        ${kw}
-        <div class="btns">
-          <a class="btn ${isWeb ? 'green' : ''}" target="_blank" href="${encodeURI(d.url)}">${openLabel}</a>
-          <button class="btn secondary" onclick="copyRef('${String(d.id).replace(/'/g, '')}')">Copier référence</button>
-        </div>
-      </article>`;
-  }).join('');
-}
-
-function copyRef(id) {
-  const d = DOCUMENTS.find(x => String(x.id) === String(id));
-  if (!d) return;
-  const text = `${d.title} — ${d.category} — ${d.url}`;
-  navigator.clipboard?.writeText(text);
-  alert('Référence copiée');
-}
-
+const typeOptions=["Tous","PERS","Note DP","Circulaire N","Accord","Barème","Corpus","Article","Statut","Document"];
+const catOptions=["Tous",...Array.from(new Set(DOCUMENTS.map(d=>d.category))).sort((a,b)=>String(a).localeCompare(String(b),"fr"))];
+const THEMES=[
+ {name:"Astreinte", query:"PERS 530 astreinte sujetions sujétions service permanence intervention appel nuit L3121-9", words:["astreinte","appel","appelé","appele","intervention","nuit","permanence","sujétion","sujetion","dépannage","depannage"], explain:"Pour l’astreinte, regarde les textes sur les sujétions de service et les articles sur l’astreinte. L’intervention pendant astreinte doit être rapprochée du temps de travail effectif."},
+ {name:"Repas / déplacement", query:"PERS 793 repas déplacement deplacement frais indemnité indemnite séjour sejour barème bareme", words:["repas","manger","déplacement","deplacement","frais","indemnité","indemnite","séjour","sejour","restaurant","midi","soir"], explain:"Pour les repas et déplacements, la référence prioritaire est la PERS 793, puis les barèmes d’indemnités applicables."},
+ {name:"Repos 11h", query:"repos quotidien 11 heures onze astreinte intervention nuit L3131-1 récupération recuperation", words:["repos","11h","onze","reprendre","reprise","récupération","recuperation","fatigue","lendemain"], explain:"Pour le repos quotidien, regarde l’article L3131-1 et les textes d’organisation liés à l’astreinte ou au temps de travail."},
+ {name:"Durée maximale 48h", query:"48 heures durée maximale hebdomadaire semaine L3121-20 heures supplémentaires", words:["48","maximum","hebdomadaire","semaine","heures sup","heures supplémentaires","depasse","dépasse","durée","duree"], explain:"Pour le plafond hebdomadaire, regarde l’article L3121-20 et les textes internes sur la durée du travail."},
+ {name:"Droit de retrait / DGI", query:"droit de retrait danger grave imminent sécurité securite DGI alerte L4131-1", words:["danger","retrait","dgi","grave","imminent","sécurité","securite","alerte","risque"], explain:"Pour un danger grave et imminent, regarde le droit de retrait, l’alerte DGI et les textes santé/sécurité."},
+ {name:"Accords de branche", query:"accord branche collectif dialogue social", words:["accord","branche","collectif","négociation","negociation"], explain:"Pour un sujet conventionnel, regarde les accords de branche IEG et les éventuels textes associés."}
+];
+function escapeHtml(s){return String(s||"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));}
+function normalize(s){return String(s||"").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");}
+function init(){typeFilter.innerHTML=typeOptions.map(t=>`<option value="${escapeHtml(t)}">${escapeHtml(t)}</option>`).join("");catFilter.innerHTML=catOptions.map(c=>`<option value="${escapeHtml(c)}">${escapeHtml(c)}</option>`).join("");renderStats();render();}
+function showMode(mode){document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));if(mode==="search"){document.querySelectorAll(".tab")[0].classList.add("active");searchPanel.classList.remove("hidden");assistantPanel.classList.add("hidden")}else{document.querySelectorAll(".tab")[1].classList.add("active");searchPanel.classList.add("hidden");assistantPanel.classList.remove("hidden")}}
+function renderStats(){const total=DOCUMENTS.length,ieg=DOCUMENTS.filter(d=>d.category!=="Code du travail"&&d.category!=="Statut IEG").length,pers=DOCUMENTS.filter(d=>d.type==="PERS").length,dp=DOCUMENTS.filter(d=>d.type==="Note DP").length,acc=DOCUMENTS.filter(d=>d.type==="Accord").length;stats.innerHTML=`<div class="stat"><b>${ieg}</b><small>documents SGE</small></div><div class="stat"><b>${pers}</b><small>circulaires PERS</small></div><div class="stat"><b>${dp}</b><small>notes DP</small></div><div class="stat"><b>${acc}</b><small>accords</small></div><div class="stat"><b>${total}</b><small>résultats indexés</small></div>`}
+function situation(text){setQ(text);window.scrollTo({top:results.offsetTop-90,behavior:"smooth"})}
+function setQ(text){q.value=text;render()}
+function queryTerms(query){return normalize(query).split(/\s+/).filter(t=>t.length>1).filter(t=>!["dans","avec","pour","quel","quelle","quels","texte","textes","regarder","faire","est","que","qui","quoi","comment","une","des","les","sur","mon","mes","ton","son","jai"].includes(t));}
+function scoreDocAdvanced(d,terms,extraQuery=""){const hay=normalize(`${d.title} ${d.filename} ${d.category} ${d.subpath} ${d.type} ${d.keywords} ${d.search}`);let score=0;for(const t of terms){if(hay.includes(t))score+=4}const title=normalize(d.title);for(const t of terms){if(title.includes(t))score+=8}if(extraQuery){for(const t of queryTerms(extraQuery)){if(hay.includes(t))score+=3;if(title.includes(t))score+=6}}if(d.type==="PERS")score+=2;if(d.type==="Article")score+=1;if(title.includes("793"))score+=terms.includes("repas")||terms.includes("deplacement")?15:0;if(title.includes("530"))score+=terms.includes("astreinte")?15:0;return score}
+function searchDocsStrict(query,limit=120){const terms=queryTerms(query);let list=DOCUMENTS.filter(d=>{const type=typeFilter?.value||"Tous",cat=catFilter?.value||"Tous";const typeOk=type==="Tous"||d.type===type,catOk=cat==="Tous"||d.category===cat;const hay=normalize(`${d.search} ${d.title} ${d.filename} ${d.keywords}`);const qOk=terms.length===0||terms.every(t=>hay.includes(t));return typeOk&&catOk&&qOk});if(terms.length)list=list.map(d=>[scoreDocAdvanced(d,terms),d]).sort((a,b)=>b[0]-a[0]||String(a[1].title).localeCompare(String(b[1].title),"fr")).map(x=>x[1]);else list=list.sort((a,b)=>String(a.title).localeCompare(String(b.title),"fr"));return list.slice(0,limit)}
+function searchDocsSmart(query,limit=8){const terms=queryTerms(query);let list=DOCUMENTS.map(d=>[scoreDocAdvanced(d,terms,query),d]).filter(x=>x[0]>0);list.sort((a,b)=>b[0]-a[0]||String(a[1].title).localeCompare(String(b[1].title),"fr"));return list.slice(0,limit).map(x=>x[1])}
+function render(){const list=searchDocsStrict(q.value,120);count.textContent=`${list.length} résultat(s)`;if(!list.length){results.innerHTML='<div class="empty">Aucun résultat exact. Essaie un mot plus court ou passe par l’assistant simple.</div>';return}results.innerHTML=list.map(cardHtml).join("")}
+function cardClass(d){if(d.type==="PERS")return"pers";if(d.type==="Note DP")return"note";if(d.type==="Accord")return"accord";if(d.type==="Article")return"article";if(d.type==="Statut")return"statut";return""}
+function typeIcon(t){return({"PERS":"📘","Note DP":"📝","Circulaire N":"📄","Accord":"🤝","Article":"⚖️","Statut":"🏛️","Barème":"💶","Corpus":"🧭","Document":"📁"})[t]||"📁"}
+function cardHtml(d){const isWeb=d.extension==="WEB",sub=[d.category,d.subpath].filter(Boolean).join(" / "),kw=d.keywords?`<p class="summary"><b>🔖 Mots-clés :</b> ${escapeHtml(d.keywords)}</p>`:"";return `<article class="card ${cardClass(d)}"><div class="badges"><span class="badge">${typeIcon(d.type)} ${escapeHtml(d.type)}</span><span class="badge ${isWeb?"green":"dark"}">${escapeHtml(d.extension)}</span></div><h3>${escapeHtml(d.title)}</h3><div class="meta">📂 ${escapeHtml(sub)}</div><p class="summary"><b>Fichier :</b> ${escapeHtml(d.filename)}</p>${kw}<div class="btns"><a class="btn ${isWeb?"green":""}" target="_blank" rel="noopener" href="${d.url}">${isWeb?"Ouvrir la source":"Ouvrir le document"}</a><button class="btn secondary" onclick="copyRef('${String(d.id).replace(/'/g,"")}')">Copier référence</button></div></article>`}
+function copyRef(id){const d=DOCUMENTS.find(x=>String(x.id)===String(id));if(!d)return;navigator.clipboard?.writeText(`${d.title} — ${d.category} — ${d.url}`);alert("Référence copiée")}
+function detectThemes(question){const nq=normalize(question);return THEMES.map(t=>{let score=0;for(const w of t.words){if(nq.includes(normalize(w)))score++}return {...t,score}}).filter(t=>t.score>0).sort((a,b)=>b.score-a.score)}
+function answerQuestion(){const question=ask.value.trim();if(!question){aiAnswer.style.display="block";aiAnswer.innerHTML="<h3>Pose une question</h3><p>Exemple : Je suis sorti en astreinte la nuit, quels textes regarder ?</p>";return}const themes=detectThemes(question);let answer="",query="";if(themes.length){answer=themes.map(t=>t.explain).join(" ");query=themes.map(t=>t.query).join(" ")}else{answer="Je n’identifie pas une situation précise, mais je recherche les textes qui correspondent aux mots-clés de ta question.";query=question}let recs=searchDocsSmart(query+" "+question,10);if(!recs.length&&themes.length)recs=searchDocsSmart(themes[0].query,10);const docsHtml=recs.map(d=>`<a class="doclink" target="_blank" href="${d.url}">• ${escapeHtml(d.title)}<br><small>${escapeHtml(d.type)} — ${escapeHtml(d.category)} — ${escapeHtml(d.filename)}</small></a>`).join("");aiAnswer.style.display="block";aiAnswer.innerHTML=`<h3>Réponse simple</h3><p>${escapeHtml(answer)}</p><p><b>Thèmes détectés :</b> ${themes.length?escapeHtml(themes.map(t=>t.name).join(", ")):"mots-clés généraux"}</p><div class="suggested"><b>Textes proposés :</b>${docsHtml||"<p>Aucun document proposé. Essaie une question plus courte.</p>"}</div><div style="margin-top:12px"><button class="btn" onclick="setQ('${query.replace(/'/g," ").slice(0,120)}');showMode('search');window.scrollTo({top:results.offsetTop-90,behavior:'smooth'});">Afficher ces résultats</button></div>`}
+function clearAssistant(){ask.value="";aiAnswer.style.display="none"}
 init();
 </script>
 </body>
